@@ -1,7 +1,12 @@
-import { h, createApp } from "vue";
 import singleSpaVue from "single-spa-vue";
-
+import { createApp, h } from "vue";
+import VueBlocksTree from "vue3-blocks-tree";
+import "vue3-blocks-tree/dist/vue3-blocks-tree.css";
+import VueLazyLoad from "vue3-lazyload";
 import App from "./App.vue";
+import "./assets/tailwind.css";
+import "./index.css";
+import { router } from "./route/route";
 
 const vueLifecycles = singleSpaVue({
   createApp,
@@ -19,6 +24,11 @@ const vueLifecycles = singleSpaVue({
       });
     },
   },
+  handleInstance: (app)=>{
+    app.use(VueBlocksTree, { treeName: "blocks-tree" });
+    app.use(VueLazyLoad);
+    app.use(router);
+  }
 });
 
 export const bootstrap = vueLifecycles.bootstrap;
